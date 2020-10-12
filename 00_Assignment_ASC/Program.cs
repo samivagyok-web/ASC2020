@@ -37,21 +37,20 @@ namespace _00_Assignment_ASC
             Console.WriteLine("Legea lui Moore (Gordon Moore fondatorul Intel), spune că " +
                 "puterea de calcul se dublează la fiecare 18 luni iar prețul rămâne același.");
             Console.Write("Enter the power multiplier compared to today: ");
-            bool validation = true;
 
             // un while loop, care da reprompt userului, in cazul inputului invalid
-            while (validation)
+            while (true)
             {
                 Console.Write("Enter the power multiplier compared to today: ");
 
                 try
                 {
                     string line1 = Console.ReadLine();
-                    int n = int.Parse(line1);
-                    double year = Math.Log(n, 2) * 1.5;
+                    int power = int.Parse(line1);
+                    double year = Math.Log(power, 2) * 1.5;
                     double month = Math.Round(year * 12); // am rotunjit luna, ca sa avem un numar rotund, max error jumat de luna.
-                    Console.WriteLine($"After {year} years (~{month} months) we will have {n} times more power than today.");
-                    validation = false;
+                    Console.WriteLine($"After {year} years (~{month} months) we will have {power} times more power than today.");
+                    break;
                 }
                 catch (Exception)
                 {
