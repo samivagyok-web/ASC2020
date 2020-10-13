@@ -45,8 +45,7 @@ namespace _00_Assignment_ASC
 
                 try
                 {
-                    string line1 = Console.ReadLine();
-                    int power = int.Parse(line1);
+                    uint power = uint.Parse(Console.ReadLine());
                     double year = Math.Log(power, 2) * 1.5;
                     double month = Math.Round(year * 12); // am rotunjit luna, ca sa avem un numar rotund, max error jumat de luna.
                     Console.WriteLine($"After {year} years (~{month} months) we will have {power} times more power than today.");
@@ -54,7 +53,7 @@ namespace _00_Assignment_ASC
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Error: only natural number input. (and under 4.2 billion...)");
+                    Console.WriteLine("Error: only natural number input. (and under 4.294.967.295...)");
                 }
             }
         }
