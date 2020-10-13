@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,19 +12,29 @@ namespace _01_Assignment_ASC_Conversie
     class Program
     {
         static void Main(string[] args)
-        {
-
-            Console.Write("Introduceti numarul in baza 10 pe care vreti" +
+        { 
+            int numar;            
+            do
+            {
+                Console.Write("Introduceti numarul in baza 10 pe care vreti" +
                 " la baza tinta: ");
-            int numar = int.Parse(Console.ReadLine());
+                if (!int.TryParse(Console.ReadLine(), out numar))
+                {
+                    Console.WriteLine("Doar NUMAR.");
+                }
+                else break;
+            } while (true);
 
+            int finishResult = numar;
             int bazaTinta;
             do
             {
-                Console.Write("Introduceti baza de tinta: ");
-                bazaTinta = int.Parse(Console.ReadLine());
+                Console.Write("Introduceti baza de tinta([2-16]): ");
+                if (!int.TryParse(Console.ReadLine(), out bazaTinta))
+                {
+                    Console.WriteLine("Doar NUMAR.");
+                }
             } while (bazaTinta < 2 || bazaTinta > 16);
-
 
             string result = "";
 
@@ -46,6 +57,7 @@ namespace _01_Assignment_ASC_Conversie
                     result = result + stiva.Pop();
                 }
             }
+
 
             if (bazaTinta > 10 && bazaTinta <= 16)
             {
@@ -88,8 +100,7 @@ namespace _01_Assignment_ASC_Conversie
                     result = result + stiva.Pop();
                 }
             }
-            Console.WriteLine(result);
-
+            Console.WriteLine($"{finishResult} in baza 10 este {result} in baza {bazaTinta}");
         }
     }
 }
