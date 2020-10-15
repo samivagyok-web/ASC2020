@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
+// todo - virgula
+
 namespace _01_Assignment_ASC_Conversie
 {
     class Program
