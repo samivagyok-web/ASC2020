@@ -17,13 +17,18 @@ namespace _01_Assignment_ASC_Conversie
             do
             {
                 Console.Write("Introduceti numarul in baza 10 pe care vreti" +
-                " la baza tinta: ");
+                " la baza tinta (daca inputul este negativ, o sa fi luat modulul): ");
                 if (!int.TryParse(Console.ReadLine(), out numar))
                 {
                     Console.WriteLine("Doar NUMAR.");
                 }
-                else break;
+                else
+                {
+                    numar = Math.Abs(numar);
+                    break;
+                }
             } while (true);
+
 
             int finishResult = numar;
             int bazaTinta;
