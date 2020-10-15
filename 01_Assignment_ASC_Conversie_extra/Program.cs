@@ -46,8 +46,8 @@ namespace _01_Assignment_ASC_Conversie
                 while (numar > 0)
                 {
                     int egesz = numar / bazaTinta;
-                    int maradek = numar % bazaTinta;
-                    stiva.Push(maradek);
+                    int rest = numar % bazaTinta;
+                    stiva.Push(rest);
                     numar /= bazaTinta;
                 }
 
@@ -66,9 +66,9 @@ namespace _01_Assignment_ASC_Conversie
                 while (numar > 0)
                 {
                     int egesz = numar / bazaTinta;
-                    int maradek = numar % bazaTinta;
+                    int rest = numar % bazaTinta;
 
-                    switch (maradek)
+                    switch (rest)
                     {
                         case 10:
                             stiva.Push("A");
@@ -89,7 +89,7 @@ namespace _01_Assignment_ASC_Conversie
                             stiva.Push("F");
                             break;
                         default:
-                            stiva.Push($"{maradek}");
+                            stiva.Push($"{rest}");
                             break;
                     }
                     numar /= bazaTinta;
