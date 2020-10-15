@@ -18,7 +18,7 @@ namespace _01_Assignment_ASC_Conversie
             int numar;            
             do
             {
-                Console.Write("Introduceti numarul in baza 10 pe care vreti" +
+                Console.Write("Introduceti numarul pe care vreti convertit" +
                 " la baza tinta (daca inputul este negativ, o sa fi luat modulul): ");
                 if (!int.TryParse(Console.ReadLine(), out numar))
                 {
@@ -31,20 +31,45 @@ namespace _01_Assignment_ASC_Conversie
                 }
             } while (true);
 
+            int bazaFirst;
+            do
+            {
+                Console.Write("Introduceti baza DIN care vreti sa convertiti([2-16]): ");
+                if (!int.TryParse(Console.ReadLine(), out bazaFirst))
+                {
+                    Console.WriteLine("Doar NUMAR intre 2 si 16 inclusiv.");
+                }
+            } while (bazaFirst < 2 || bazaFirst > 16);
+
 
             int finishResult = numar;
             int bazaTinta;
             do
             {
-                Console.Write("Introduceti baza de tinta([2-16]): ");
+                Console.Write("Introduceti baza IN care vreti sa convertiti([2-16]): ");
                 if (!int.TryParse(Console.ReadLine(), out bazaTinta))
                 {
-                    Console.WriteLine("Doar NUMAR.");
+                    Console.WriteLine("Doar NUMAR intre 2 si 16 inclusiv.");
                 }
             } while (bazaTinta < 2 || bazaTinta > 16);
 
-            string result = "";
 
+            double numLenght;
+            int irrelevant = numar;
+            if (bazaFirst >= 2 && bazaFirst <= 9)
+            {
+                numLenght = Math.Floor(Math.Log10(numar)) + 1;
+                for (int i = 0; i < numLenght; i++)
+                {
+                    int singleNumbers = irrelevant % 10;
+                    Console.WriteLine(singleNumbers);
+                    irrelevant /= 10;
+                }
+            }
+
+
+
+            string result = "";
 
             if (bazaTinta >= 2 && bazaTinta <= 9)
             {
