@@ -50,13 +50,22 @@ namespace _01_Assignment_ASC_Conversie
                 else
                 {
                     numar = Math.Abs(numar);
-                    break;
-                }
+                    double n = Math.Floor(Math.Log10(numar)) + 1;
+                    int irrelevant = numar;
 
+                    for (int i = 0; i < n; i++)
+                    {
+                        int singleNumbers = irrelevant % 10;
+                        if (singleNumbers >= bazaFirst)
+                        {
+                            Console.WriteLine("Invalid number input");
+                            break;
+                        }
+                        irrelevant /= 10;
+                    }
+                }
             } while (true);
 
-
-            int finishResult = numar;
             double sum = 0;
             double numLenght = Math.Floor(Math.Log10(numar)) + 1;
             if (bazaFirst >= 2 && bazaFirst <= 9)
