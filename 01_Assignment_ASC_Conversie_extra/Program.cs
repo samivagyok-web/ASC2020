@@ -40,6 +40,8 @@ namespace _01_Assignment_ASC_Conversie
             int numar;
             do
             {
+                int s = 0;
+
                 Console.Write("Introduceti numarul pe care vreti convertit" +
                 " la baza tinta (daca inputul este negativ, o sa fi luat modulul): ");
                 
@@ -58,12 +60,16 @@ namespace _01_Assignment_ASC_Conversie
                         int singleNumbers = irrelevant % 10;
                         if (singleNumbers >= bazaFirst)
                         {
-                            Console.WriteLine("Invalid number input");
+                            Console.WriteLine($"Invalid number input - acceptable numbers: [0-{bazaFirst-1}]");
+                            s++;
                             break;
                         }
                         irrelevant /= 10;
                     }
                 }
+
+                if (s == 0)
+                    break;
             } while (true);
 
             double sum = 0;
