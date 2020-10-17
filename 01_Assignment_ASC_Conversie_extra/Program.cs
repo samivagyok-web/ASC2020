@@ -40,7 +40,7 @@ namespace _01_Assignment_ASC_Conversie
             int numar;
             do
             {
-                int s = 0;
+                int breaker = 0;
 
                 Console.Write("Introduceti numarul pe care vreti convertit" +
                 " la baza tinta (daca inputul este negativ, o sa fi luat modulul): ");
@@ -48,6 +48,7 @@ namespace _01_Assignment_ASC_Conversie
                 if (!int.TryParse(Console.ReadLine(), out numar))
                 {
                     Console.WriteLine("Doar NUMAR.");
+                    breaker++;
                 }
                 else
                 {
@@ -60,17 +61,18 @@ namespace _01_Assignment_ASC_Conversie
                         int singleNumbers = irrelevant % 10;
                         if (singleNumbers >= bazaFirst)
                         {
-                            Console.WriteLine($"Invalid number input - acceptable numbers: [0-{bazaFirst-1}]");
-                            s++;
+                            Console.WriteLine($"Invalid number input" +
+                                $" - acceptable numbers: [0 - {bazaFirst-1}]");
+                            breaker++;
                             break;
                         }
                         irrelevant /= 10;
                     }
                 }
 
-                if (s == 0)
+                if (breaker == 0)
                     break;
-            } while (true);
+            } while (true);  // probabil asta-i overcomplicated, dar macar merge
 
             double sum = 0;
             double numLenght = Math.Floor(Math.Log10(numar)) + 1;
