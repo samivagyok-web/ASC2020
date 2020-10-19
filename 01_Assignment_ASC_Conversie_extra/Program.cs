@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
-// todo - virgula, szakasz, 10+ alap
+// todo - virgula, szakasz
 
 namespace _01_Assignment_ASC_Conversie
 {
@@ -37,6 +37,7 @@ namespace _01_Assignment_ASC_Conversie
             } while (bazaTinta < 2 || bazaTinta > 16);
 
             int numar;
+            string higherThan10;
             do
             {
                 int breaker = 0;
@@ -45,7 +46,7 @@ namespace _01_Assignment_ASC_Conversie
                     Console.Write("Introduceti numarul pe care vreti convertit" 
                         + " la baza tinta (daca inputul este negativ, o sa fi luat modulul): ");
 
-                string higherThan10 = Console.ReadLine();
+                higherThan10 = Console.ReadLine();
 
                 if (int.TryParse(higherThan10, out numar))
                 {
@@ -112,10 +113,64 @@ namespace _01_Assignment_ASC_Conversie
                     irrelevant /= 10;
                 }
             }
-            
+
             if (bazaFirst > 10 && bazaFirst <= 16)
             {
-                
+                int strLen = higherThan10.Length;
+
+                for (int i = strLen - 1; i >= 0; i--)
+                {
+                    switch (higherThan10[i])
+                    {
+                        case '1':
+                            sum = sum + (1 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '2':
+                            sum = sum + (2 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '3':
+                            sum = sum + (3 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '4':
+                            sum = sum + (4 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '5':
+                            sum = sum + (5 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '6':
+                            sum = sum + (6 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '7':
+                            sum = sum + (7 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '8':
+                            sum = sum + (8 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case '9':
+                            sum = sum + (9 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case 'A':
+                            sum = sum + (10 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case 'B':
+                            sum = sum + (11 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case 'C':
+                            sum = sum + (12 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case 'D':
+                            sum = sum + (13 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case 'E':
+                            sum = sum + (14 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        case 'F':
+                            sum = sum + (15 * Math.Pow(16, strLen - i - 1));
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
 
             string result = "";
