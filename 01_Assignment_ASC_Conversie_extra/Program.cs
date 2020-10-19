@@ -8,15 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
-// todo - virgula
+// todo - virgula, szakasz, 10+ alap
 
 namespace _01_Assignment_ASC_Conversie
 {
     class Program
     {
         static void Main(string[] args)
-        { 
-
+        {
             int bazaFirst;
             do
             {
@@ -42,15 +41,13 @@ namespace _01_Assignment_ASC_Conversie
             {
                 int breaker = 0;
 
-                Console.Write("Introduceti numarul pe care vreti convertit" +
-                " la baza tinta (daca inputul este negativ, o sa fi luat modulul): ");
-                
-                if (!int.TryParse(Console.ReadLine(), out numar))
-                {
-                    Console.WriteLine("Doar NUMAR.");
-                    breaker++;
-                }
-                else
+
+                    Console.Write("Introduceti numarul pe care vreti convertit" 
+                        + " la baza tinta (daca inputul este negativ, o sa fi luat modulul): ");
+
+                string higherThan10 = Console.ReadLine();
+
+                if (int.TryParse(higherThan10, out numar))
                 {
                     numar = Math.Abs(numar);
                     double n = Math.Floor(Math.Log10(numar)) + 1;
@@ -59,103 +56,130 @@ namespace _01_Assignment_ASC_Conversie
                     for (int i = 0; i < n; i++)
                     {
                         int singleNumbers = irrelevant % 10;
+
                         if (singleNumbers >= bazaFirst)
                         {
                             Console.WriteLine($"Invalid number input" +
-                                $" - acceptable numbers: [0 - {bazaFirst-1}]");
+                                $" - acceptable numbers: [0 - {bazaFirst - 1}]");
                             breaker++;
                             break;
                         }
                         irrelevant /= 10;
                     }
                 }
+                else
+                {
+                    int strLen = higherThan10.Length;
 
-                if (breaker == 0)
-                    break;
-            } while (true);  // probabil asta-i overcomplicated, dar macar merge
+                    char[] acceptable = {'1', '2', '3', '4', '5', '6',
+                        '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+                    // arrayul este facut asa daca de ex. bazaFirst = 13, cifrele D, E, F nu vor fi acceptate
+                    int goodCharacters = 16 - bazaFirst;
+                    int arrLen = acceptable.Length - goodCharacters;
+
+                    for (int i = 0; i < strLen; i++)
+                    {
+                        higherThan10 = higherThan10.ToUpper();
+                        for (int j = 0; j < arrLen; j++)
+                        {
+                            if (higherThan10[i] == acceptable[j])
+                            {
+                                breaker = 0;
+                                break;
+                            }
+                            else breaker++;
+                        }
+
+                        if (breaker != 0)
+                            break;
+                    }
+                }
+                if (breaker == 0) break;
+            } while (true); // probabil asta-i overcomplicated, dar macar merge
+            // FULL INPUT HANDLING DONE (I THINK)
+
 
             double sum = 0;
             double numLenght = Math.Floor(Math.Log10(numar)) + 1;
-            if (bazaFirst >= 2 && bazaFirst <= 9)
+            if (bazaFirst >= 2 && bazaFirst <= 10)
             {
                 int irrelevant = numar;
                 for (int i = 0; i < numLenght; i++)
                 {
                     int singleNumbers = irrelevant % 10;
-                    sum = sum + (singleNumbers*Math.Pow(bazaFirst, i));
+                    sum = sum + (singleNumbers * Math.Pow(bazaFirst, i));
                     irrelevant /= 10;
                 }
             }
-
+            
             if (bazaFirst > 10 && bazaFirst <= 16)
             {
-
+                
             }
 
-             string result = "";
+            string result = "";
 
-             if (bazaTinta >= 2 && bazaTinta <= 9)
-             {
-                 Stack<int> stiva = new Stack<int>();
+            if (bazaTinta >= 2 && bazaTinta <= 10)
+            {
+                Stack<int> stiva = new Stack<int>();
 
                 while (sum > 0)
                 {
                     int egesz = (int)sum / bazaTinta;
                     int rest = (int)sum % bazaTinta;
                     stiva.Push(rest);
-                    sum = (int)sum /  bazaTinta;
-                 }
+                    sum = (int)sum / bazaTinta;
+                }
 
+                while (stiva.Count > 0)
+                {
+                    result = result + stiva.Pop();
+                }
+            }
 
-                 while (stiva.Count > 0)
-                 {
-                     result = result + stiva.Pop();
-                 }
-             }
+            if (bazaTinta > 10 && bazaTinta <= 16)
+            {
+                Stack<string> stiva = new Stack<string>();
 
+                while (sum > 0)
+                {
+                    int egesz = (int)sum / bazaTinta;
+                    int rest = (int)sum % bazaTinta;
 
-             if (bazaTinta > 10 && bazaTinta <= 16)
-             {
-                 Stack<string> stiva = new Stack<string>();
+                    switch (rest)
+                    {
+                        case 10:
+                            stiva.Push("A");
+                            break;
+                        case 11:
+                            stiva.Push("B");
+                            break;
+                        case 12:
+                            stiva.Push("C");
+                            break;
+                        case 13:
+                            stiva.Push("D");
+                            break;
+                        case 14:
+                            stiva.Push("E");
+                            break;
+                        case 15:
+                            stiva.Push("F");
+                            break;
+                        default:
+                            stiva.Push($"{rest}");
+                            break;
+                    }
+                    sum = (int)sum / bazaTinta;
+                }
 
-                 while (sum > 0)
-                 {
-                     int egesz = (int)sum / bazaTinta;
-                     int rest = (int)sum % bazaTinta;
-
-                     switch (rest)
-                     {
-                         case 10:
-                             stiva.Push("A");
-                             break;
-                         case 11:
-                             stiva.Push("B");
-                             break;
-                         case 12:
-                             stiva.Push("C");
-                             break;
-                         case 13:
-                             stiva.Push("D");
-                             break;
-                         case 14:
-                             stiva.Push("E");
-                             break;
-                         case 15:
-                             stiva.Push("F");
-                             break;
-                         default:
-                             stiva.Push($"{rest}");
-                             break;
-                     }
-                     sum = (int)sum / bazaTinta;
-                 }
-
-                 while (stiva.Count > 0)
-                 {
-                     result = result + stiva.Pop();
-                 }
-             }
-             Console.WriteLine(result);
+                while (stiva.Count > 0)
+                {
+                    result = result + stiva.Pop();
+                }
+            }
+            Console.WriteLine(result);
         }
     }
 }
