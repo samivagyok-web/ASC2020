@@ -38,6 +38,7 @@ namespace _01_Assignment_ASC_Conversie
 
             int numar;
             string higherThan10;
+            double virgula;
             do
             {
                 int breaker = 0;
@@ -67,6 +68,10 @@ namespace _01_Assignment_ASC_Conversie
                         }
                         irrelevant /= 10;
                     }
+                }
+                else if (double.TryParse(higherThan10, out virgula))
+                {
+                    Console.WriteLine("virg");
                 }
                 else
                 {
@@ -114,63 +119,73 @@ namespace _01_Assignment_ASC_Conversie
                 }
             }
 
+
             if (bazaFirst > 10 && bazaFirst <= 16)
             {
                 int strLen = higherThan10.Length;
 
+                Console.WriteLine($"lenght: {strLen}");
+
                 for (int i = strLen - 1; i >= 0; i--)
                 {
+                    Console.WriteLine($"i: {i}");
+
                     switch (higherThan10[i])
                     {
+                        case '0':
+                            sum = sum + (0 * Math.Pow(bazaFirst, strLen - i - 1));
+                            break;
                         case '1':
-                            sum = sum + (1 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (1 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '2':
-                            sum = sum + (2 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (2 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '3':
-                            sum = sum + (3 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (3 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '4':
-                            sum = sum + (4 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (4 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '5':
-                            sum = sum + (5 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (5 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '6':
-                            sum = sum + (6 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (6 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '7':
-                            sum = sum + (7 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (7 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '8':
-                            sum = sum + (8 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (8 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case '9':
-                            sum = sum + (9 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (9 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case 'A':
-                            sum = sum + (10 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (10 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case 'B':
-                            sum = sum + (11 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (11 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case 'C':
-                            sum = sum + (12 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (12 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case 'D':
-                            sum = sum + (13 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (13 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case 'E':
-                            sum = sum + (14 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (14 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         case 'F':
-                            sum = sum + (15 * Math.Pow(16, strLen - i - 1));
+                            sum = sum + (15 * Math.Pow(bazaFirst, strLen - i - 1));
                             break;
                         default:
                             break;
                     }
+                    Console.WriteLine(sum);
                 }
+                Console.WriteLine($"sum in 10: {sum}");
             }
 
             string result = "";
@@ -228,6 +243,8 @@ namespace _01_Assignment_ASC_Conversie
                     }
                     sum = (int)sum / bazaTinta;
                 }
+
+                Console.WriteLine($"sum after comp: {sum}");
 
                 while (stiva.Count > 0)
                 {
