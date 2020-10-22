@@ -11,6 +11,7 @@ using System.Xml.Schema;
 // disclaimer - codul este foarte urat momentan dar face ce trebuie; pana la deadline
 //              va fi aranjat in functii ca sa nu uitam la mii de switch statementuri
 //              si va fii schimbata si versiunea asta de low budget periodicitate checker
+//              + codul este foarte repetitiv
 
 namespace _01_Assignment_ASC_Conversie
 {
@@ -74,8 +75,8 @@ namespace _01_Assignment_ASC_Conversie
                 {
                     int strLen = higherThan10.Length;
 
-                    char[] acceptable = {'.', '1', '2', '3', '4', '5', '6',
-                        '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F'};
+                    char[] acceptable = {'.', '0', '1', '2', '3', '4', '5', '6',
+                        '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
                     // arrayul este facut asa daca de ex. bazaFirst = 13, cifrele D, E, F nu vor fi acceptate
                     int goodCharacters = 16 - bazaFirst;
@@ -268,6 +269,7 @@ namespace _01_Assignment_ASC_Conversie
 
                     Console.Write(result + ".");
 
+                    int periodic = 0;
                     while (true)
                     {
                         double a = parteFract * bazaTinta;
@@ -275,6 +277,10 @@ namespace _01_Assignment_ASC_Conversie
                         Console.Write(seduce);
                         parteFract = a - (int)a;
                         if (parteFract * 10 % 10 == 0)
+                            break;
+
+                        periodic++;
+                        if (periodic == 50)
                             break;
 
                     }
