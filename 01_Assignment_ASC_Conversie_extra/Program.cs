@@ -13,6 +13,8 @@ using System.Xml.Schema;
 //              si va fii schimbata si versiunea asta de low budget periodicitate checker
 //              + codul este foarte repetitiv
 
+// disclaimer2 - nu prea am facut nimic din disclaimer1 :(
+
 namespace _01_Assignment_ASC_Conversie
 {
     class Program
@@ -130,6 +132,17 @@ namespace _01_Assignment_ASC_Conversie
                 int putere = -1;
                 for (int i = punct + 1; i < strLeng; i++)
                 {
+                    // metoda furata de la dommnul professor (i don't want to plagiarize)
+                 /*   if (char.IsDigit(higherThan10[i]))
+                    {
+                        sum = sum + ((int)higherThan10[i] - (int)'0') * Math.Pow(bazaFirst, putere);
+                    }
+                    else
+                    {
+                        sum = sum + ((int)higherThan10[i] - (int)'A') * Math.Pow(bazaFirst, putere);
+                    }  */ 
+                    // cand am folosit metoda asta, programul nu a dat output in niste cazuri (ex. b2 -> b10 - numar: 10110.101)
+
                     switch (higherThan10[i])
                     {
                         case '0':
@@ -182,7 +195,7 @@ namespace _01_Assignment_ASC_Conversie
                             break;
                         default:
                             break;
-                    }
+                    } 
                     putere--;
                 }
 
@@ -375,7 +388,6 @@ namespace _01_Assignment_ASC_Conversie
             }
             else
             {
-
                 double numLenght = Math.Floor(Math.Log10(numar)) + 1;
                 if (bazaFirst >= 2 && bazaFirst <= 10)
                 {
