@@ -13,7 +13,7 @@ namespace _02_Assingment_ASC_HexViewer
         static void Main(string[] args)
         {
             
-            string filename = @"C:\Users\Sami\Desktop\OTP gec\paypal.png";
+            string filename = @"C:\Users\Sami\Desktop\könyv\hexviewT.txt";
 
             using (FileStream
                 f = new FileStream(filename, FileMode.Open, FileAccess.Read))

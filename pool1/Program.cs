@@ -42,7 +42,19 @@ namespace pool1
 
             // treiCresc();
 
-            cinciCresc();
+         ///   cinciCresc();
+
+            // euclidAlg();
+
+         //   descomp();
+
+            douaCifre();
+
+            /// zecimalPer();
+
+           // hiLo();
+
+
         }
 
         public static double getNumber()
@@ -386,9 +398,121 @@ namespace pool1
             }
         }
 
+        public static void euclidAlg()
+        {
+            Console.Write("Introduceti primul numar: ");
+            double numar1 = getNumber();
+            Console.Write("Introduceti al doilea numar: ");
+            double numar2 = getNumber();
+            double aux;
+            double produs = numar1 * numar2;
+            
+            while (numar2 > 0)
+            {
+                aux = numar2;
+                numar2 = numar1 % numar2;
+                numar1 = aux;
+            }
+            Console.WriteLine($"Cel mai mare divizor comun este {numar1}");
+
+            Console.WriteLine($"Cel mai mic multiplu comun este {(produs/numar1)}");
+
+            delimiter();
+        }
+
         public static void cinciCresc()
         {
+            Console.Write("a: ");
+            double a = getNumber();
+            Console.Write("b: ");
+            double b = getNumber();
+            Console.Write("c: ");
+            double c = getNumber();
+            Console.Write("d: ");
+            double d = getNumber();
+            Console.Write("e: ");
+            double e = getNumber();
 
+            
         }
+
+        public static void descomp()
+        {
+            Console.Write("Introduceti un numar: ");
+            double a = (int)getNumber();
+            int d = 2;
+            int p = 0;
+            
+            while (a > 1)
+            {
+                p = 0;
+                while (a % d == 0)
+                {
+                    p++;
+                    a = a / d;
+                }
+
+                if (p > 0)
+                {
+                    Console.WriteLine($"{d} - {p}");
+                }
+                d++;
+
+                if (a > 1 && d*d > a)
+                {
+                    d = (int)a;
+                }
+
+            }
+        }
+
+        public static void douaCifre()
+        {
+            Console.WriteLine("Introduceti un numar: ");
+            double numar = (int)getNumber();
+            double lungime = (int)(Math.Floor(Math.Log10(numar)));
+            int[] numere = new int[lungime]; 
+            int first = (int)numar % 10;
+            
+            Console.WriteLine($"{first}");
+
+            for (int i = 0; i < lungime+1; i++)
+            {
+                
+            }
+        } 
+
+     /*   public static void zecimalPer()
+        {
+            Console.Write("a: ");
+            double a = getNumber();
+            Console.Write("b: ");
+            double b = getNumber();
+
+
+        } */
+
+        public static void hiLo()
+        {
+            Random rnd = new Random();
+            int x = rnd.Next(1024);
+            
+            double n;
+            int s = 0;
+            do
+            {
+                Console.Write("Introduceti un numar intre [1-1024]: ");
+                n = getNumber();
+                s++;
+                if (n < x)
+                    Console.WriteLine("Prea mic.");
+                else if (n > x)
+                    Console.WriteLine("Prea mare");
+                else
+                    Console.WriteLine($"Ai ghicit numarul din {s} incercari!");
+
+            } while (n != x);
+        }
+
     }
 }
