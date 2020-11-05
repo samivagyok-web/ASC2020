@@ -13,7 +13,7 @@ namespace _02_Assingment_ASC_HexViewer
         static void Main(string[] args)
         {
             
-            string filename = @"C:\Users\Sami\Desktop\könyv\hexviewT.txt";
+            string filename = @"C:\Users\Sami\Desktop\OTP gec\paypal.png";
 
             using (FileStream
                 f = new FileStream(filename, FileMode.Open, FileAccess.Read))
@@ -21,15 +21,17 @@ namespace _02_Assingment_ASC_HexViewer
                 int hexIn;
                 int s = 0;
                 int index = 0;
+                byte[] buffer = new byte[17];
                 
-
                 for (int i = 0; (hexIn = f.ReadByte()) != -1; i++)
                 {
+
                     if (s % 16 == 0)
                     {
                         Console.Write($"{convertToHex(index)}: ");
                         index++;
                     }
+                    buffer[i] = (byte)hexIn;
 
                     Console.Write($"{hexIn:X2} ");
 
@@ -37,11 +39,11 @@ namespace _02_Assingment_ASC_HexViewer
                     if (s % 8 == 0)
                         Console.Write("| ");
 
-
-                    
-
                     if (s % 16 == 0)
-                        Console.WriteLine("");
+                    {
+                        Console.WriteLine(System.Text.Encoding.UTF8.GetString(buffer, 0, buffer.Length));
+                        i = -1;
+                    }
                 }
             }
 
