@@ -31,7 +31,14 @@ namespace _02_Assingment_ASC_HexViewer
                         Console.Write($"{convertToHex(index)}: ");
                         index++;
                     }
-                    buffer[i] = (byte)hexIn;
+                    if (hexIn <= 31 || hexIn == 127)
+                    {
+                        buffer[i] = 46;
+                    }
+                    else
+                    {
+                        buffer[i] = (byte)hexIn;
+                    }
 
                     Console.Write($"{hexIn:X2} ");
 
