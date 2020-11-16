@@ -53,12 +53,6 @@ namespace _03_Assingment_ASC_Automat
 
                         dispense(price, coin);
                         rest(price, coin);
-
-                    }
-                    else if (coin == 20)
-                    {
-                        dispense(price, coin);
-                        rest(price, coin);
                     }
                     else
                     {
@@ -79,9 +73,6 @@ namespace _03_Assingment_ASC_Automat
                     rest(price, coin);
                 }
             }
-
-            
-
         }
 
         private static void rest(int price, int coin)
