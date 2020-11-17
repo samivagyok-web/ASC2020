@@ -13,6 +13,16 @@ namespace _03_Assingment_ASC_Automat
             int price = 20;
             int coin = insertCoin();
 
+        // METHOD 1
+            while (!dispense(price, coin))
+            {
+                coin = coin + insertCoin();
+            }
+
+            rest(price, coin);
+
+
+        // METHOD 2
             // starting coin quarter
             if (coin == 25)
             {
@@ -72,7 +82,7 @@ namespace _03_Assingment_ASC_Automat
                     dispense(price, coin);
                     rest(price, coin);
                 }
-            }
+            } 
         }
 
         private static void rest(int price, int coin)
