@@ -11,6 +11,23 @@ namespace _03_Assingment_ASC_Automat
         static void Main(string[] args)
         {
             int price = 20;
+            bool valid;
+
+            do
+            {
+                valid = true;
+                Console.Write("Cost of product: ");
+                try
+                {
+                    price = int.Parse(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    valid = false;
+                    Console.WriteLine("Invalid input");
+                }
+            } while (!valid || price > 100);
+
             int coin = insertCoin();
 
         // METHOD 1
@@ -21,7 +38,7 @@ namespace _03_Assingment_ASC_Automat
 
             rest(price, coin);
 
-
+/*
         // METHOD 2
             // starting coin quarter
             if (coin == 25)
@@ -82,12 +99,35 @@ namespace _03_Assingment_ASC_Automat
                     dispense(price, coin);
                     rest(price, coin);
                 }
-            } 
+            } */
         }
 
         private static void rest(int price, int coin)
         {
-            Console.WriteLine($"Restul e {coin-price}");
+            int rest = coin - price;
+            int quarterCounter = 0;
+            int dimeCounter = 0;
+            int nickelCounter = 0;
+
+            while (rest >= 25)
+            {
+                rest = rest - 25;
+                quarterCounter++;
+            }
+
+            while (rest >= 10)
+            {
+                rest = rest - 10;
+                dimeCounter++;
+            }
+
+            while (rest >= 5)
+            {
+                rest = rest - 5;
+                nickelCounter++;
+            }
+
+            Console.WriteLine($"Restul e {coin-price} - {quarterCounter} quarter, {dimeCounter} dime, {nickelCounter} nickel");
         }
 
         private static bool dispense(int price,int coin)
