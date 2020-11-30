@@ -19,29 +19,107 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
                 line = Console.ReadLine();
             } while (line != "+" && line != "-" && line != "*" && line != "/" && line != "^" && line != "sqrt");
 
-            int[] two = hugeNumberInput();
-            Console.WriteLine("asdssasd");
+            int[] two = new int[] { };
+
+            if (line != "sqrt")
+            {
+                two = hugeNumberInput();
+            }
+
             switch (line)
             {
                 case "+":
-                    view(addition(one, two));
+                    view(removeZero(addition(one, two)));
                     break;
                 case "-":
-                    view(subtraction(one, two));
+                    view(removeZero(subtraction(one, two)));
                     break;
                 case "*":
-                    view(multiplication(one, two));
+                    view(removeZero(multiplication(one, two)));
                     break;
                 case "/":
+                    view(division(one, two));
                     break;
                 case "^":
-                    view(putere(one, two));
+                    view(removeZero(putere(one, two)));
                     break;
                 case "sqrt":
+                    radacinaPatrate(one);
                     break;
                 default:
                     break;
             }
+        }
+
+        private static void radacinaPatrate(int[] one)  // WORK IN PROGRESS
+        {
+            int[] result = new int[one.Length + 3];
+            int numar = firstPair(one);
+            Console.WriteLine(numar);
+            for (int i = 0; i*i <= numar; i++)
+            {
+                result[0] = i;
+            }
+
+            int nextStep = result[0] * 2;
+
+            numar = ((numar - result[0] * result[0]) * 100) + addingNextPair(one, lenOfNum(numar));
+            Console.WriteLine(numar);
+
+        
+        }
+
+        private static int arrayToNum(int[] arr)
+        {
+            int sum = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sum = (int)(sum + arr[i] * Math.Pow(10, arr.Length - 1 - i));
+            }
+            return sum;
+        }
+    
+
+        private static int lenOfNum(int numar)
+        {
+            return (int)Math.Floor(Math.Log10(numar)) + 1;
+        }
+
+        private static int firstPair(int[] arr)
+        {
+            if (arr.Length % 2 == 1)
+            {
+                return arr[0];
+            }
+            else
+            {
+                return addingNextPair(arr, 0);
+            }
+        }
+
+        private static int addingNextPair(int[] arr, int fromIndex)
+        {
+            int sum = 0;
+            int j = 1;
+            for (int i = fromIndex; i <= fromIndex + 1 ; i++)
+            {
+                sum = (int)(sum + arr[i] * Math.Pow(10, j));
+                j--;
+            }
+            return sum;
+        }
+
+        private static int[] division(int[] one, int[] two)
+        {
+            int whole = 0;
+            while (biggerNum(one, two))
+            {
+                one = removeZero(subtraction(one, two));
+                whole++;
+            }
+            Console.WriteLine($"Partea intreaga: {whole}");
+            Console.Write("Rest: ");
+            return one;
         }
 
         private static int[] putere(int[] one, int[] two)
@@ -232,6 +310,24 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return arr;
         }
 
+        private static int[] removeZero(int[] arr)
+        {
+            int i = 0;
+
+            while (i < arr.Length && arr[i] == 0)
+            {
+                i++;
+            }
+
+            int[] newArr = new int[arr.Length-i];
+
+            for (int j = 0; j < newArr.Length; j++)
+            {
+                newArr[j] = arr[j + i];
+            }
+
+            return newArr;
+        }
         private static void view(int[] arr)
         {
             for (int i = 0; i < arr.Length; i++)
