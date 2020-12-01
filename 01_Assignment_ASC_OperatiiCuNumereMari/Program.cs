@@ -53,9 +53,10 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
 
         private static void radacinaPatrate(int[] one)  // WORK IN PROGRESS
         {
-            int[] result = new int[one.Length + 3];
+            int[] result = new int[one.Length/2];
             int numar = firstPair(one);
-            Console.WriteLine(numar);
+            int loopLen = 0;
+
             for (int i = 0; i*i <= numar; i++)
             {
                 result[0] = i;
@@ -64,19 +65,65 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             int nextStep = result[0] * 2;
 
             numar = ((numar - result[0] * result[0]) * 100) + addingNextPair(one, lenOfNum(numar));
-            Console.WriteLine(numar);
 
-        
+
+            int minusDinNumar = 0;
+            for (int i = 1; i < one.Length / 2; i++)
+            {
+                for (int j = 1; j < 10; j++)
+                {
+                    if (((nextStep * 10) + j) * j <= numar)
+                    {
+                        minusDinNumar = ((nextStep * 10) + j) * j;
+                        result[i] = j;
+                    }
+                }
+
+                if (i < one.Length / 2 - 1)
+                {
+                    numar = (numar - minusDinNumar) * 100 + addingNextPair(one, i * 2 + 2);
+
+                    nextStep = arrayToNum(result) * 2;
+                }
+                Console.WriteLine($"numar: {numar} nextStep: {nextStep}");
+            }
+            view(result);
+
+            Console.Write(".");
+
+            for (int i = 0; i < 2; i++)
+            {
+                
+            }
         }
 
         private static int arrayToNum(int[] arr)
         {
             int sum = 0;
+            arr = removeZeroesFromEnd(arr);
+
             for (int i = 0; i < arr.Length; i++)
             {
                 sum = (int)(sum + arr[i] * Math.Pow(10, arr.Length - 1 - i));
             }
             return sum;
+        }
+
+        private static int[] removeZeroesFromEnd(int[] arr)
+        {
+            int i = arr.Length - 1;
+            while (arr[i] == 0)
+            {
+                i--;
+            }
+
+            int[] newArr = new int[i+1];
+
+            for (int j = 0; j <= i; j++)
+            {
+                newArr[j] = arr[j];
+            }
+            return newArr;
         }
     
 
