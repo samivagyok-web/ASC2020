@@ -68,6 +68,7 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
 
 
             int minusDinNumar = 0;
+            int nextPair = 4;
             for (int i = 1; i < one.Length / 2; i++)
             {
                 for (int j = 1; j < 10; j++)
@@ -79,12 +80,12 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
                     }
                 }
 
-                if (i < one.Length / 2 - 1)
-                {
-                    numar = (numar - minusDinNumar) * 100 + addingNextPair(one, i * 2 + 2);
 
-                    nextStep = arrayToNum(result) * 2;
-                }
+                numar = (numar - minusDinNumar) * 100 + addingNextPair(one, nextPair);
+
+                nextStep = arrayToNum(result) * 2;
+                nextPair = nextPair + 2;
+
                 Console.WriteLine($"numar: {numar} nextStep: {nextStep}");
             }
             view(result);
@@ -156,6 +157,7 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return sum;
         }
 
+        // simple division using multiple subtraction
         private static int[] division(int[] one, int[] two)
         {
             int whole = 0;
@@ -169,6 +171,7 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return one;
         }
 
+        // simple ^ calculation using multiple multiplication
         private static int[] putere(int[] one, int[] two)
         {
             int putere = 0;
@@ -185,6 +188,8 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return fullSum;
         }
 
+        // multiplication as you'd do it on paper; shifting the digits after completing each phase of it, and filling with zeroes
+        // and the beginning and at the end
         private static int[] multiplication(int[] one, int[] two)
         {
             int[] fullProd = new int[] { };
@@ -291,6 +296,8 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return sum;
         }
 
+        // takes as input the array which has less digits, and the number of digits differentiating the two arrays;
+        // loads up with zeroes at the beginning so operations are more easily performed
         private static int[] newArrWithZeros(int[] two, int diff)
         {
             int[] newArr = new int[two.Length + diff];
@@ -301,6 +308,8 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return newArr;
         }
 
+        // compares the two arrays and returns true if the first is bigger, false in case the second
+        // quite useful at not commutative operations
         private static bool biggerNum(int[] one, int[] two)
         {
             if (one.Length > two.Length)
@@ -325,6 +334,8 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return true;
         }
 
+        // a string is read-in (which will we be an eventual operand); this function takes a look at the validity of
+        // the number and loads it into an array
         private static int[] hugeNumberInput()
         {
             int[] arr = new int[] { };
@@ -357,6 +368,8 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
             return arr;
         }
 
+        // after certain operations zeroes might appear in front (because of transport e.g.); this array takes the array as the 
+        // input and returns the same array without the zeroes in front
         private static int[] removeZero(int[] arr)
         {
             int i = 0;
@@ -375,6 +388,7 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
 
             return newArr;
         }
+        
         private static void view(int[] arr)
         {
             for (int i = 0; i < arr.Length; i++)
