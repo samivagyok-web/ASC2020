@@ -13,7 +13,7 @@ namespace pool1
         static void Main(string[] args)
         {
 
-            // [1-14]
+            // POOL 1 FINISHED
 
               // gradUnu();
 
@@ -39,11 +39,9 @@ namespace pool1
 
             // divInInterval();
 
-            // bisectInterval();
-
              // palindrom();
 
-            // treiCresc();
+           //  treiCresc();
 
             ///   cinciCresc();
 
@@ -52,8 +50,6 @@ namespace pool1
             //   descomp();
 
             // douaCifre();
-
-            /// zecimalPer();
 
             // hiLo();
 
@@ -379,7 +375,7 @@ namespace pool1
             double a = getNumber();
             Console.Write("Introduceti al doilea numar: ");
             double b = getNumber();
-            Console.Write("Introduceti al treilea (cred ca asa se scrie) numar: ");
+            Console.Write("Introduceti al treilea numar: ");
             double c = getNumber();
 
             if (a > b && a > c)
@@ -408,21 +404,21 @@ namespace pool1
         public static void euclidAlg()
         {
             Console.Write("Introduceti primul numar: ");
-            double numar1 = getNumber();
+            double a = getNumber();
             Console.Write("Introduceti al doilea numar: ");
-            double numar2 = getNumber();
-            double aux;
-            double produs = numar1 * numar2;
-            
-            while (numar2 > 0)
-            {
-                aux = numar2;
-                numar2 = numar1 % numar2;
-                numar1 = aux;
-            }
-            Console.WriteLine($"Cel mai mare divizor comun este {numar1}");
+            double b = getNumber();
+            double r;
+            double produs = a * b;
 
-            Console.WriteLine($"Cel mai mic multiplu comun este {(produs/numar1)}");
+            do
+            {
+                r = a % b;
+                a = b;
+                b = r;
+            } while (r != 0);
+            Console.WriteLine($"Cel mai mare divizor comun este {a}");
+
+            Console.WriteLine($"Cel mai mic multiplu comun este {(produs/a)}");
 
             delimiter();
         }
@@ -475,29 +471,44 @@ namespace pool1
 
         public static void douaCifre()
         {
-            Console.WriteLine("Introduceti un numar: ");
-            double numar = (int)getNumber();
-            double lungime = (int)(Math.Floor(Math.Log10(numar)));
-       //     int[] numere = new int[lungime]; 
-            int first = (int)numar % 10;
-            
-            Console.WriteLine($"{first}");
+            // Determinati daca un numar e format doar cu 2 cifre care se pot repeta.
+            // De ex. 23222 sau 9009000 sunt astfel de numere, pe cand 593 si 4022 nu sunt.
 
-            for (int i = 0; i < lungime+1; i++)
+            Console.Write("Introduceti un numar: ");
+            int n = (int)getNumber();
+            bool doarDouaCifre = true;
+
+            int a = n % 10;
+            n = n / 10;
+
+            int b = 0;
+            while (n > 0)
             {
-                
+                b = n % 10;
+                n = n / 10;
+                if (b != a)
+                {
+                    break;
+                }
             }
-        } 
 
-     /*   public static void zecimalPer()
-        {
-            Console.Write("a: ");
-            double a = getNumber();
-            Console.Write("b: ");
-            double b = getNumber();
+            int c = 0;
+            while (n > 0)
+            {
+                c = n % 10;
+                n = n / 10;
+                if (c != a && c != b)
+                {
+                    doarDouaCifre = false;
+                    break;
+                }
+            }
 
-
-        } */
+            if (doarDouaCifre)
+                Console.WriteLine("Numarul poate fi format din 2 cifre.");
+            else
+                Console.WriteLine("Numarul nu poate fi format din 2 cifre.");
+        }
 
         public static void hiLo()
         {
