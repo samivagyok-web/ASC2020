@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace pool1
 {
@@ -12,13 +13,15 @@ namespace pool1
         static void Main(string[] args)
         {
 
-            //   gradUnu();
+            // [1-14]
+
+              // gradUnu();
 
             //   gradDoi();
 
             //   seDivide();
 
-            //  anBisect();
+           //   anBisect();
 
             // afisareCifra();
 
@@ -28,7 +31,7 @@ namespace pool1
 
             // noswap();
 
-            // nrOfDivisors();
+           //  nrOfDivisors();
 
             // primChecker();
 
@@ -38,23 +41,67 @@ namespace pool1
 
             // bisectInterval();
 
-            // palindrom();
+             // palindrom();
 
             // treiCresc();
 
-         ///   cinciCresc();
+            ///   cinciCresc();
 
             // euclidAlg();
 
-         //   descomp();
+            //   descomp();
 
-            douaCifre();
+            // douaCifre();
 
             /// zecimalPer();
 
-           // hiLo();
+            // hiLo();
 
+            // anBisectInterval();
+        }
 
+        private static void anBisectInterval()
+        {
+            int a = (int)getNumber();
+            int b = (int)getNumber();
+            int counter = 0;
+            int newA = a;
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            while (a % 4 != 0)
+            {
+                a++;
+            }
+
+            while (a <= b)
+            {
+                if (((a % 4 == 0) && (a % 100 != 0)) || (a % 400 == 0))
+                {
+                    counter++;
+                }
+                a = a + 4;
+            }
+            sw.Stop();
+            Console.WriteLine($"elapsed ms {sw.ElapsedMilliseconds}");
+            Console.WriteLine($"{counter}");
+
+            counter = 0;
+            Stopwatch stopw = new Stopwatch();
+            stopw.Start();
+
+            for (int i = newA; i <= b; i++)
+            {
+                if (((i % 4 == 0) && (i % 100 != 0)) || (i % 400 == 0))
+                {
+                    counter++;
+                }
+            }
+            stopw.Stop();
+            Console.WriteLine($"elapsed ms {stopw.ElapsedMilliseconds}");
+
+            Console.WriteLine($"{counter}");
         }
 
         public static double getNumber()
@@ -142,7 +189,7 @@ namespace pool1
             Console.Write("Introduceti anul: ");
             int an = (int)getNumber();
 
-            if (an % 4 == 0)
+            if (((an % 4 == 0) && (an % 100 != 0)) || (an % 400 == 0))
             {
                 Console.WriteLine($"{an} este bisect");
             }
@@ -168,7 +215,6 @@ namespace pool1
                 {
                     numar = (int)numar / 10;
                 }
-
                 Console.WriteLine($"A {cifra}. cifra este {numar % 10}");
             }
             else
@@ -235,15 +281,15 @@ namespace pool1
             Console.Write("Cate divizori are urmatorul numar intreg: ");
             double numar = (int)getNumber();
 
-            for (int i = 0; i < numar/2 + 1; i++)
+            for (int i = 0; i < Math.Sqrt(numar); i++)
             {
                 if (numar % i == 0)
                 {
-                    Console.Write(i + " ");
-                }
-                if (i == numar/2)
-                {
-                    Console.WriteLine(numar);
+                    Console.Write($"{i} ");
+                    if (numar/i != i)
+                    {
+                        Console.Write($"{numar/i} ");
+                    }
                 }
             }
             Console.WriteLine();
@@ -255,17 +301,18 @@ namespace pool1
             Console.Write("Numarul la care doriti sa faceti primcheck: ");
             double numar = (int)getNumber();
             double upperBound = (int)Math.Sqrt(numar);
-            int s = 0;
+            bool prim = true;
 
-            for (int i = 2; i < upperBound+1; i++)
+            for (int i = 2; i <= upperBound; i++)
             {
                 if (numar % i == 0)
                 {
-                    s++;
+                    prim = false;
+                    break;
                 }
             }
 
-            if (s == 0)
+            if (prim)
                 Console.WriteLine("Numarul este prim");
             else
                 Console.WriteLine("Numarul nu este prim");
@@ -276,40 +323,27 @@ namespace pool1
 
         public static void ordInversaCifre()
         {
-            Console.Write("Introduceti numarul: ");
-            double numar = (int)getNumber();
-            double lungime = Math.Floor(Math.Log10(numar)) + 1;
+            int n = (int)getNumber();
+            int newNum = 0;
 
-            int[] cifre = new int[(int)lungime];
-
-            for (int i = 0; i < (int)lungime; i++)
+            while (n > 0)
             {
-                int whole = (int)numar % 10;
-                cifre[i] = whole;
-                numar /= 10;
+                newNum = newNum * 10 + n % 10;
+                n /= 10;
             }
-
-            Array.Sort(cifre);
-            Array.Reverse(cifre);
-
-            for (int i = 0; i < (int)lungime; i++)
-            {
-                Console.Write(cifre[i]);
-            }
-            Console.WriteLine();
-            delimiter();
+            Console.WriteLine($"{newNum}");
         }
 
         public static void divInInterval()
         {
             Console.Write("Introduceti numarul: ");
-            double numar = (int)getNumber();
+            int numar = (int)getNumber();
             Console.Write("Introduceti lower bound of interval: ");
-            double a = (int)getNumber();
+            int a = (int)getNumber();
             Console.Write("Introduceti upper bound of interval: ");
-            double b = (int)getNumber();
+            int b = (int)getNumber();
 
-            for (int i = (int)a; i <= b; i++)
+            for (int i = a; i <= b; i++)
             {
                 if (i % numar == 0)
                 {
@@ -320,54 +354,27 @@ namespace pool1
             delimiter();
         }
 
-        public static void bisectInterval()
-        {
-            Console.Write("Introduceti lower bound: ");
-            double a = (int)getNumber();
-            Console.Write("Introduceti upper bound: ");
-            double b = (int)getNumber();
-
-            for (int i = (int)a; i <= b; i++)
-            {
-                if (i % 4 == 0)
-                {
-                    Console.Write(i + " ");
-                }
-            }
-            delimiter();
-        }
-
         public static void palindrom()
         {
-            // 12321 = 1 * 10000 + 2 * 1000 + 3 * 100 + 2 * 10 + 1 * 1 
-            // lungime = 5
-            Console.Write("Introduceti un numar: ");
-            double numar = (int)getNumber();
-            double copyofNum = numar;
-            double lungime = Math.Floor(Math.Log10(numar)) + 1;
-            int n = (int)lungime;
-            int sum = 0;
+            int n = (int)getNumber();
+            int nCopy = n;
+            int newNum = 0;
+            
+            while (n > 0)
+            {
+                newNum = newNum * 10 + n % 10;
+                n = n / 10;
+            }
 
-            for (int i = 0; i < n; i++)
-            {
-                int whole = (int)numar % 10;
-                sum = (int)(sum + (whole * Math.Pow(10, n - 1 - i)));
-                numar /= 10;
-            }
-            if (copyofNum == sum)
-            {
-                Console.WriteLine("Numarul este palindrom");
-            }
+
+            if (newNum == nCopy)
+                Console.WriteLine("Este palindrom");
             else
-            {
-                Console.WriteLine("Numarul nu este palindrom :(");
-            }
+                Console.WriteLine("Nu este palindrom");
         }
 
         public static void treiCresc()
         {
-            // presupun ca nici aici n-am voie sa folosesc array
-
             Console.Write("Introduceti primul numar: ");
             double a = getNumber();
             Console.Write("Introduceti al doilea numar: ");
@@ -439,31 +446,31 @@ namespace pool1
         public static void descomp()
         {
             Console.Write("Introduceti un numar: ");
-            double a = (int)getNumber();
-            int d = 2;
-            int p = 0;
-            
-            while (a > 1)
+            int n = (int)getNumber();
+
+            int divizor = 2;
+            int putere;
+            while (n != 1)
             {
-                p = 0;
-                while (a % d == 0)
+                putere = 0;
+                while (n % divizor == 0)
                 {
-                    p++;
-                    a = a / d;
+                    putere++;
+                    n = n / divizor;
                 }
 
-                if (p > 0)
+                if (putere != 0)
                 {
-                    Console.WriteLine($"{d} - {p}");
-                }
-                d++;
+                    Console.WriteLine($"{divizor}^{putere}");
 
-                if (a > 1 && d*d > a)
-                {
-                    d = (int)a;
+                    if (n != 1)
+                    {
+                        Console.WriteLine("* ");
+                    }
                 }
-
+                divizor++;
             }
+
         }
 
         public static void douaCifre()
@@ -471,7 +478,7 @@ namespace pool1
             Console.WriteLine("Introduceti un numar: ");
             double numar = (int)getNumber();
             double lungime = (int)(Math.Floor(Math.Log10(numar)));
-            int[] numere = new int[lungime]; 
+       //     int[] numere = new int[lungime]; 
             int first = (int)numar % 10;
             
             Console.WriteLine($"{first}");

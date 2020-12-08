@@ -19,7 +19,7 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
                 line = Console.ReadLine();
             } while (line != "+" && line != "-" && line != "*" && line != "/" && line != "^" && line != "sqrt");
 
-            int[] two = new int[] { };
+            int[] two = null;
 
             if (line != "sqrt")
             {
@@ -224,7 +224,7 @@ namespace _04_Assingment_ASC_OperatiiNumereMari
 
         private static int[] addition(int[] one, int[] two)
         {
-            int diff;
+            int diff = 0;
             if (biggerNum(one, two))
             {
                 diff = one.Length - two.Length;
