@@ -13,39 +13,46 @@ namespace _05_Assingment_ASC_Asamblor
         static void Main(string[] args)
         {
             TextReader assembly = new StreamReader(@"..\..\data.in");
-            string line = "";
+            string line = "";                                    // stringul in care va fi citit liniile din fileul assembly
 
-            string bits = "00000000000000000000000000000000";
+            string bits = "00000000000000000000000000000000";  
 
-            int lines = numOfLines();
-            Regex machCode = new Regex(@"\s+\.");
+            int lines = numOfLines();                           // numarul liniilor din file
+            Regex machCode = new Regex(@"\s+\.");               // regex pt. gasirea pseudo-operatiilor
             for (int i = 0; i < lines; i++)
             {
-                StringBuilder bit = new StringBuilder(bits);
+                StringBuilder bit = new StringBuilder(bits);    // Stringbuilder pt. manipularea stringurilor
                 line = assembly.ReadLine();
 
-                Regex firstTwo = new Regex(@"(ld|st|addcc|jmpl)");
+                // gasim instructiunea care o sa seteze op3 si primele doua bituri din secventa
+                Regex firstTwo = new Regex(@"(ld|st|addcc|jmpl)");  
                 MatchCollection matches = firstTwo.Matches(line);
                 if (firstTwo.IsMatch(line))
                 {
                     bit = firstTwoBitsAndOp3(bit, line, firstTwo, matches);
                 }
 
-                Regex reg = new Regex(@"%r\d+");
-                Regex var = new Regex(@"(?<=\[).+?(?=\])");
+
+                // determinam daca intr-o linie exista variabila si registru, sau DOAR registru
+                Regex reg = new Regex(@"(?<=%r)\d{1,2}");   // ex. %r15, %r2
+                Regex var = new Regex(@"(?<=\[).+?(?=\])"); // ex. [x], [y]
                 MatchCollection regMatches = reg.Matches(line);
                 MatchCollection varMatches = var.Matches(line);
 
+                // daca in linie exista si variabila si registru ex. [x], %r1 
                 if (reg.IsMatch(line) && var.IsMatch(line))
                 {
                     varAndReg(bit, line, reg, regMatches, var, varMatches);
                 }
 
+                // daca in linie exista DOAR registru ex. %r1, %r2, %r3
                 if (reg.IsMatch(line) && !(var.IsMatch(line)))
                 {
                     onlyRegister(bit, line, reg, regMatches);
                 }
 
+                // daca in linie este o variabila declarate ex. x: 15
+                // regexul cauta valoarea variabilei, si converteste intro secventa binara de 32 de cifre
                 Regex varValue = new Regex(@"(?<=\s+)\d{1,2}$");
                 MatchCollection m = varValue.Matches(line);
 
@@ -58,6 +65,7 @@ namespace _05_Assingment_ASC_Asamblor
                     bit = new StringBuilder(bitVal);
                 }
 
+                // nu afisam codul de masina daca este un preudo-cod ex. .begin, .end
                 if (!machCode.IsMatch(line))
                 {
                     Console.WriteLine(bit);
@@ -67,6 +75,7 @@ namespace _05_Assingment_ASC_Asamblor
 
         private static StringBuilder varAndReg(StringBuilder bit, string line, Regex reg, MatchCollection regMatches, Regex var, MatchCollection varMatches)
         {
+            // cautam ce loc ocupa variabila in memorie, schimbam in binar
             string patHelper = ":";
             foreach (Match match in varMatches)
             {
@@ -76,6 +85,7 @@ namespace _05_Assingment_ASC_Asamblor
                 bit = regSource2(bit, conversionToBinary(locInMemorie));
             }
 
+            // dupa ce am terminat cu variabila folosim functia pt. registrul
             onlyRegister(bit, line, reg, regMatches);
 
             return bit;
@@ -83,22 +93,17 @@ namespace _05_Assingment_ASC_Asamblor
 
         private static StringBuilder onlyRegister(StringBuilder bit, string line, Regex reg, MatchCollection regMatches)
         {
+            // fiindca conteaza sirul registrelor in linie (de ex. %r1, %2, %r3 != %r2, %r3, %r1) punem intr-o array
             int[] regNumbers = new int[regMatches.Count];
-            Regex digits = new Regex(@"\d{1,2}");
 
             int i = 0;
             foreach(Match match in regMatches)
             {
-                string register = match.ToString();
-                MatchCollection matches = digits.Matches(register);
-                
-                foreach (Match match2 in matches)
-                {
-                    regNumbers[i] = int.Parse(match2.ToString());
-                    i++;
-                }
+                  regNumbers[i] = int.Parse(match.ToString());
+                  i++;
             }
 
+            // niste legi predefinite (cred) ce valoare intra in rd, rs1, rs2
             if (regNumbers.Length == 3)
             {
                 bit = regDestination(bit, conversionToBinary(regNumbers[2]));
@@ -214,9 +219,10 @@ namespace _05_Assingment_ASC_Asamblor
 
         static private int memorie(Regex variable)
         {
+            // functia care returneaza locul ocupat in memorie a unui variabila
             int memo = -4;
             TextReader code = new StreamReader(@"..\..\data.in");
-            Regex pattern = new Regex(@"\s+\.");
+            Regex pattern = new Regex(@"\s+\.");    // nu numaram pseudo-operatiile
             string buffer = " ";
 
             while (!variable.IsMatch(buffer))
