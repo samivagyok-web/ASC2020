@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD83C3BF-F2B3-4C22-A1B8-791D235D3BC9}</ProjectGuid>
+    <ProjectGuid>{0FDF8FEA-05E6-4548-8841-84540C09BE02}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_05_Assingment_ASC_Asamblor</RootNamespace>
-    <AssemblyName>05_Assingment_ASC_Asamblor</AssemblyName>
+    <RootNamespace>_06_Assingment_RPN</RootNamespace>
+    <AssemblyName>06_Assingment_RPN</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,11 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data.in">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,24 +12,25 @@ namespace _05_Assingment_ASC_Asamblor
     {
         static void Main(string[] args)
         {
-            TextReader assembly = new StreamReader(@"..\..\data.in");
+            TextReader assembly = new StreamReader("data.in");
             string line = "";                                    // stringul in care va fi citit liniile din fileul assembly
 
-            string bits = "00000000000000000000000000000000";  
-
+            string bits = "00000000000000000000000000000000";
+    
             int lines = numOfLines();                           // numarul liniilor din file
-            Regex machCode = new Regex(@"\s+\.");               // regex pt. gasirea pseudo-operatiilor
+            Regex pseudoOp = new Regex(@"\s+\.");               // regex pt. gasirea pseudo-operatiilor
+
             for (int i = 0; i < lines; i++)
             {
                 StringBuilder bit = new StringBuilder(bits);    // Stringbuilder pt. manipularea stringurilor
                 line = assembly.ReadLine();
 
                 // gasim instructiunea care o sa seteze op3 si primele doua bituri din secventa
-                Regex firstTwo = new Regex(@"(ld|st|addcc|jmpl)");  
-                MatchCollection matches = firstTwo.Matches(line);
-                if (firstTwo.IsMatch(line))
+                Regex instruction = new Regex(@"(ld|st|addcc|jmpl)");  // todo
+                MatchCollection matches = instruction.Matches(line);
+                if (instruction.IsMatch(line))
                 {
-                    bit = firstTwoBitsAndOp3(bit, line, firstTwo, matches);
+                    bit = firstTwoBitsAndOp3(bit, line, instruction, matches);
                 }
 
 
@@ -53,7 +54,7 @@ namespace _05_Assingment_ASC_Asamblor
 
                 // daca in linie este o variabila declarate ex. x: 15
                 // regexul cauta valoarea variabilei, si converteste intro secventa binara de 32 de cifre
-                Regex varValue = new Regex(@"(?<=\s+)\d{1,2}$");
+                Regex varValue = new Regex(@"(?<=\s+)\d+$");
                 MatchCollection m = varValue.Matches(line);
 
                 foreach(Match match in m)
@@ -66,7 +67,7 @@ namespace _05_Assingment_ASC_Asamblor
                 }
 
                 // nu afisam codul de masina daca este un preudo-cod ex. .begin, .end
-                if (!machCode.IsMatch(line))
+                if (!pseudoOp.IsMatch(line))
                 {
                     Console.WriteLine(bit);
                 }
@@ -238,7 +239,7 @@ namespace _05_Assingment_ASC_Asamblor
 
         static private int numOfLines()
         {
-            TextReader code = new StreamReader(@"..\..\data.in");
+            TextReader code = new StreamReader("data.in");
             int count = 0;
             while (code.ReadLine() != null)
             {
