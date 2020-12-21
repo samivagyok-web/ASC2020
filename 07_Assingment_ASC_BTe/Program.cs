@@ -32,7 +32,7 @@ namespace _07_Assingment_ASC_BTe
 
             decimalToBTE(numar); 
 
-      /*      do
+            do
             {
                 valid = true;
                 Console.Write("Introduceti un numar in BTE (acceptable characters: T/0/1): ");
@@ -46,9 +46,9 @@ namespace _07_Assingment_ASC_BTe
                         break;
                     }
                 }
-            } while (!valid); */
+            } while (!valid); 
 
-       //     BTEtoDecimail(input);
+            BTEtoDecimail(input);
         }
 
         private static void BTEtoDecimail(string input)
