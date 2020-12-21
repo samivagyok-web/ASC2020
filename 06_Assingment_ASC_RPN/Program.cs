@@ -64,7 +64,7 @@ namespace _06_Assingment_RPN
                         }
                     }
                 }
-            } while (!valid); 
+            } while (!valid);   
 
 
             Queue<string> output = new Queue<string>();
@@ -96,6 +96,8 @@ namespace _06_Assingment_RPN
                     while (op.Count != 0 && precedence[listIndex + 1] <= precedence[listIndex] && op.Peek() != "(")
                     {
                         output.Enqueue(op.Pop());
+                        precedence.RemoveAt(listIndex);
+                        listIndex--;
                     }       
 
                     op.Push(expressie[i].ToString());
@@ -135,7 +137,14 @@ namespace _06_Assingment_RPN
                 arithmetic.Add(output.Dequeue());
             }
             Console.WriteLine();
-            
+
+            Console.WriteLine("Postfix notation: ");
+            for (int i = 0; i < arithmetic.Count; i++)
+            {
+                Console.Write($"{arithmetic[i]} ");
+            }
+            Console.WriteLine();
+
             int result = 0;
             while (arithmetic.Count > 1)
             {
@@ -173,7 +182,7 @@ namespace _06_Assingment_RPN
                     }
                 }
             }
-            Console.WriteLine(result);
+            Console.WriteLine($"Result: {result}");
         }
     }
 }
