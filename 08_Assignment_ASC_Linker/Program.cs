@@ -39,13 +39,30 @@ namespace _08_Assignment_ASC_Linker
             }
             return true;
         }
+
+        internal static bool usedNotDefined(List<Tuple<string, int>> util, int n, List<Tuple<string, int>> definitions)
+        {
+            string symbol = ""; 
+            for (int i = 0; i < util.Count; i++)
+            {
+                if (n == util[i].Item2)
+                    symbol = util[i].Item1;
+            }
+
+            for (int i = 0; i < definitions.Count; i++)
+            {
+                if (symbol == definitions[i].Item1)
+                    return false;
+            }
+            return true;
+        }
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            TextReader file = new StreamReader("input-4");
+            TextReader file = new StreamReader("input-1");
             string wholeInput = file.ReadToEnd();
             wholeInput = removeSpacesBetweenWords(wholeInput);
             wholeInput = removeSpacesBeginningOfLine(wholeInput);
@@ -70,11 +87,7 @@ namespace _08_Assignment_ASC_Linker
                     string name = wholeInput.Split(' ')[j];
                     int num = int.Parse(wholeInput.Split(' ')[j + 1]) + relativeAddress;
                     Tuple<string, int> pair = new Tuple<string, int>(name, num);
-                    if (!Errors.multipleDefinition(definitions, name))
-                    {
-                        definitions.Add(pair);
-                        Console.WriteLine($"{name} multiply defined. First value used.");
-                    }
+                    definitions.Add(pair);
                 }
                 pnt = pnt + 2 * numOfDefinitions + 1;
 
@@ -146,35 +159,19 @@ namespace _08_Assignment_ASC_Linker
             }
             Console.WriteLine();
 
-            Console.WriteLine("Util table:");
-            for (int i = 0; i < util.Count; i++)
-                Console.WriteLine($"{util[i].Item1} - {util[i].Item2}");
 
-            Console.WriteLine();
-
-            Console.WriteLine("Definition table: ");
+            Console.WriteLine("Symbol table: ");
             for (int i = 0; i < definitions.Count; i++)
                 Console.WriteLine($"{definitions[i].Item1} - {definitions[i].Item2}");
 
-            Console.WriteLine("Word table: ");
+            Console.WriteLine();
+
+            Console.WriteLine("Memory map: ");
             for (int i = 0; i < words.Count; i++)
             {
                 Console.WriteLine($"{i}: {words[i]}");
             }
-            Console.WriteLine();
-            Console.WriteLine();
-            for (int i = 0; i < words.Count; i++)
-            {
-                if (words[i] / 10000 > 0)
-                {
-                    Console.WriteLine($"{i}: {words[i]}");
-                }
-            }
-            Console.WriteLine("Relative addresses");
-            for (int i = 0; i < relativeAddresses.Count; i++)
-            {
-                Console.WriteLine($"{i}: {relativeAddresses[i]}");
-            }
+
 
             for (int i = 0; i < definitions.Count; i++)
             {
